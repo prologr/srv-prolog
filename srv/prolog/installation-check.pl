@@ -1,4 +1,4 @@
-/*  File:    check-installation.pl
+/*  File:    installation-check.pl
     Author:  Roy Ratcliffe
     Created: Sep 24 2022
     Purpose: Installation Check
@@ -26,6 +26,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
+:- autoload(library(check_installation), [check_installation/0]).
+
+:- use_module(library(settings), [convert_setting_text/3]).
+
 :- initialization(installation_check, program).
 
 %!  installation_check is det.
@@ -34,7 +38,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 %   `CHECK_INSTALLATION` matches `YES` but skips the check otherwise.
 
 installation_check :-
-    (   getenv('CHECK_INSTALLATION', 'YES')
+    (   getenv('CHECK_INSTALLATION', CheckInstallation),
+        convert_setting_text(boolean, CheckInstallation, true)
     ->  check_installation
     ;   true
     ).
