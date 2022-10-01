@@ -1,4 +1,4 @@
-FROM royratcliffe/swi-prolog:alpine
+FROM prologr/swi-prolog:alpine
 
 COPY .config /root/.config
 
